@@ -6,7 +6,13 @@ package com.codegang.pattern.singleton;
 // calls the getInstance() method successfully passes the if check and instantiates the object. Then thread th1
 // get awake and it also creates the object. At this time, there would be two object of this class.
 
-// To avoid this, we will use the synchronized to the getInstance() method. 
+// To avoid this, we will use the synchronized to the getInstance() method.
+
+/**
+*
+* @author nguyendlp
+*/
+
 public class ThreadSafeSingleton {
 	
 	private volatile static ThreadSafeSingleton instance = null;
@@ -39,5 +45,26 @@ public class ThreadSafeSingleton {
 			}
 		}
 		return instance;
+	}
+	
+	public void doSomeThing() 
+	{
+		System.out.println("do some thing.");
+	}
+	
+
+}
+
+class ThreadSafeSingletonEx{
+	
+	public static void main(String[] args) {
+		
+		System.out.println("======ThreadSafeSingleton=====");
+		ThreadSafeSingleton s1 = ThreadSafeSingleton.getInstance();
+		ThreadSafeSingleton s2 = ThreadSafeSingleton.getInstance();
+		
+		if(s1 == s2) {
+			System.out.println("s1 and s2 are same instance"); 
+		}
 	}
 }
