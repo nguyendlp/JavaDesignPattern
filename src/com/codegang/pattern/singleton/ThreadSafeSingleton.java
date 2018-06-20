@@ -1,5 +1,12 @@
 package com.codegang.pattern.singleton;
 
+// This code is used to create Singleton in a multi-threaded environment.
+// If multi-threads concurrently accessing the class, thread th1 gives the first call to getInstance() method,
+// it checks if the static variable "instance" is null and get interrupted due to some reason. Another thread th2  
+// calls the getInstance() method successfully passes the if check and instantiates the object. Then thread th1
+// get awake and it also creates the object. At this time, there would be two object of this class.
+
+// To avoid this, we will use the synchronized to the getInstance() method. 
 public class ThreadSafeSingleton {
 	
 	private volatile static ThreadSafeSingleton instance = null;
@@ -12,6 +19,7 @@ public class ThreadSafeSingleton {
 	// synchronized, so that only one thread can execute this method at a time.
 	// But it reduces the performance because of cost associated with the synchronized method, 
 	// although we need it only for the first few threads who might create the separate instances
+	// This way, we only synchronized the first time.
 	public static synchronized ThreadSafeSingleton getInstance() {
 		if (instance == null) {
 			instance = new ThreadSafeSingleton();
